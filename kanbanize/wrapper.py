@@ -1,52 +1,17 @@
-__author__ = 'Stefano Guandalini <guandalf@gmail.com'
-__version__ = '0.1.2'
-__classifiers__ = [
-    'Intended Audience :: Developers',
-    'Operating System :: OS Independent',
-    'Programming Language :: Python',
-    'Topic :: Internet :: WWW/HTTP',
-]
-__copyright__ = "2011, %s " % __author__
-__license__ = """
-   Copyright (C) %s
-
-      This program is free software: you can redistribute it and/or modify
-      it under the terms of the GNU General Public License as published by
-      the Free Software Foundation, either version 3 of the License, or
-      (at your option) any later version.
-
-      This program is distributed in the hope that it will be useful,
-      but WITHOUT ANY WARRANTY; without even the implied warranty of
-      MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-      GNU General Public License for more details.
-
-      You should have received a copy of the GNU General Public License
-      along with this program.  If not, see <http://www.gnu.org/licenses/>.
-""" % __copyright__
-
-__docformat__ = 'restructuredtext en'
-
-__doc__ = """
-:abstract: Python interface to Request Tracker REST API
-:version: %s
-:author: %s
-:contact: http://stefanoguandalini.it/
-:date: 2012-04-06
-:copyright: %s
-""" % (__version__, __author__, __license__)
-
 from json import loads
 from restkit import Resource
-from pprint import pprint as pp
 
 class Kanbanize(Resource):
+    """ Specialized version of restkit.Resource to deal with kanbanize.com APIs
+    """
 
-    def __init__(self, **kwargs):
+    def __init__(self, apikey = None, **kwargs):
         URI = 'http://kanbanize.com/index.php/api/kanbanize'
+        self.apikey = apikey
         super(Kanbanize, self).__init__(URI, **kwargs)
 
     def request(self, method, path=None, payload=None, headers=None, **kwargs):
-        headers = headers or { 'apikey': 'XTJGwx9zKi1IJ3RZPXD2WfL0Vx4bJcaAZDL3qEtD', }
+        headers = headers or { 'apikey': self.apikey, }
         format =  kwargs['format']
         if format == 'raw':
             f = ''
@@ -76,6 +41,8 @@ class Kanbanize(Resource):
         :rtype: dict or str (for explicit format request)
         :raises: TypeError if given format is != from the ones above
 
+
+
         """
         r = self.post('/get_all_tasks/boardid/%s' % boardid, format=format)
         if format == 'dict':
@@ -102,12 +69,3 @@ class Kanbanize(Resource):
             return loads(r.body_string())
         else:
             return r.body_string()
-
-
-if __name__ == "__main__":
-    k = Kanbanize()
-    pp( k.get_all_tasks(5) )
-    print '--------------------'
-    pp( k.get_task_details(5, 27))
-
-
