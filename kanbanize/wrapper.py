@@ -3,9 +3,13 @@ from restkit import Resource
 
 class Kanbanize(Resource):
     """ Specialized version of restkit.Resource to deal with kanbanize.com APIs
+
+        :param apikey: Your kanbanize.com API key
+        :type apikey: str
+
     """
 
-    def __init__(self, apikey = None, **kwargs):
+    def __init__(self, apikey, **kwargs):
         URI = 'http://kanbanize.com/index.php/api/kanbanize'
         self.apikey = apikey
         super(Kanbanize, self).__init__(URI, **kwargs)
@@ -41,7 +45,8 @@ class Kanbanize(Resource):
         :rtype: dict or str (for explicit format request)
         :raises: TypeError if given format is != from the ones above
 
-        Example ::
+        Example::
+
             from kanbanize.wrapper import Kanbanize
 
             k = Kanbanize(apikey = <your api key here>)
