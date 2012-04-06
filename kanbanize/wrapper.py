@@ -41,7 +41,11 @@ class Kanbanize(Resource):
         :rtype: dict or str (for explicit format request)
         :raises: TypeError if given format is != from the ones above
 
+        Example ::
+            from kanbanize.wrapper import Kanbanize
 
+            k = Kanbanize(apikey = <your api key here>)
+            k.get_all_tasks(<boardid>)
 
         """
         r = self.post('/get_all_tasks/boardid/%s' % boardid, format=format)

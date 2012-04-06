@@ -1,5 +1,5 @@
 __author__ = 'Stefano Guandalini <guandalf@gmail.com>'
-__version__ = '0.1.9'
+__version__ = '0.1.10'
 __classifiers__ = [
     'Intended Audience :: Developers',
     'Operating System :: OS Independent',
@@ -27,7 +27,7 @@ __license__ = """
 __docformat__ = 'restructuredtext en'
 
 __doc__ = """
-:abstract: Python interface to Request Tracker REST API
+:abstract: Python interface to kanbanize.com API
 :version: %s
 :author: %s
 :contact: http://stefanoguandalini.it/

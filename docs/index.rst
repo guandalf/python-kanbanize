@@ -13,7 +13,7 @@ Contents:
 
 .. automodule:: kanbanize
 
-.. autoclass:: kanbanize.Kanbanize
+.. autoclass:: kanbanize.wrapper.Kanbanize
    :members:
 
 Indices and tables
