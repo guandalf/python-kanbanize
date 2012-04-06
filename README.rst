@@ -9,6 +9,10 @@ To install just::
 
     $ easy_istall python-kanbanize
 
+or::
+
+    $ pip install python-kanbanize
+
 Usage
 =====
 Getting started::
