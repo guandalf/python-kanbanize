@@ -17,7 +17,7 @@ Usage
 =====
 Getting started::
 
-    from kanbanize.wrapper import Kanbanize
+    from python-kanbanize.wrapper import Kanbanize
 
     k = Kanbanize(<your api key here>)
     k.get_all_tasks(<boardid>)

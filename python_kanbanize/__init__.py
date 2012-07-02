@@ -1,5 +1,5 @@
 __author__ = 'Stefano Guandalini <guandalf@gmail.com>'
-__version__ = '0.1.12'
+__version__ = '0.2.7'
 __classifiers__ = [
     'Intended Audience :: Developers',
     'Operating System :: OS Independent',
@@ -35,3 +35,5 @@ __doc__ = """
 :copyright: %s
 """ % (__version__, __author__, __license__)
 
+import logging
+logging.getLogger(__name__).addHandler(logging.NullHandler())

@@ -1,4 +1,6 @@
 from requests import Session
+import json
+import logging
 
 class Kanbanize(Session):
     """ Specialized version of restkit.Resource to deal with kanbanize.com APIs
@@ -93,14 +95,10 @@ class Kanbanize(Session):
         :rtype: int
 
         """
-
-        p = []
-        for k, v in details.iteritems():
-            p.append(k)
-            p.append(v)
-
-        params = '/'.join(p)
-        r = self.post('/create_new_task/boardid/%s/%s' % (boardid, params), format = 'raw')
+        details['boardid'] = boardid
+        params = json.dumps(details)
+        logging.debug('create_new_task:%s' % params)
+        r = self.post('/create_new_task/', data=params, format = 'raw')
         return r.content
 
 if __name__ == "__main__":
