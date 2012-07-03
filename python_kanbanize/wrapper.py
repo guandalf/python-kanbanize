@@ -17,18 +17,21 @@ class Kanbanize(Session):
     def request(self, method, url=None, data=None, headers=None, **kwargs):
         URI = 'http://kanbanize.com/index.php/api/kanbanize'
         url = '%s%s' % (URI, url)
-        headers = { 'apikey': self.apikey, }
+        headers = { 'apikey': self.apikey, 'content-type': 'application/json' }
         format =  kwargs['format']
         del kwargs['format']
-        if format == 'raw':
-            f = ''
-        elif format in ['xml', 'json', 'csv']:
+        if format in ['xml', 'json', 'csv']:
             f = format
+            url = "%s/format/%s" % (url, f)
         elif format == 'dict':
             f = 'json'
+            url = "%s/format/%s" % (url, f)
+        elif format == 'raw':
+            pass
         else:
             raise TypeError
-        url = "%s/format/%s" % (url, f)
+        logging.debug('Kanbanize.request:%s - %s - %s' % (url, data, format))
+
         return super(Kanbanize, self).request(
             method,
             url=url,
@@ -84,7 +87,7 @@ class Kanbanize(Session):
         else:
             return r.content
 
-    def create_new_task(self, boardid, details={}):
+    def create_new_task(self, boardid, details):
         """
         Creates a new task in 'boardid' board with optional 'details'
 
@@ -92,13 +95,30 @@ class Kanbanize(Session):
         :type boardid: int
         :param details: Task details
         :type details: dict (http://kanbanize.com/ctrl_integration for details)
-        :rtype: int
+        :rtype: xml
 
         """
         details['boardid'] = boardid
         params = json.dumps(details)
         logging.debug('create_new_task:%s' % params)
         r = self.post('/create_new_task/', data=params, format = 'raw')
+        return r.content
+
+    def edit_task(self, boardid, details):
+        """
+        Edit a task in 'boardid' board with provided 'details'
+
+        :param boardid: Board number to retrieve tasks from
+        :type boardid: int
+        :param details: Task details
+        :type details: dict (http://kanbanize.com/ctrl_integration for details)
+        :rtype: xml
+
+        """
+        details['boardid'] = boardid
+        params = json.dumps(details)
+        logging.debug('edit_task:%s' % params)
+        r = self.post('/edit_task/', data=params, format = 'raw')
         return r.content
 
 if __name__ == "__main__":

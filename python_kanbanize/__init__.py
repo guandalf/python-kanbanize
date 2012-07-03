@@ -1,5 +1,5 @@
 __author__ = 'Stefano Guandalini <guandalf@gmail.com>'
-__version__ = '0.2.7'
+__version__ = '0.2.1'
 __classifiers__ = [
     'Intended Audience :: Developers',
     'Operating System :: OS Independent',
