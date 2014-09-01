@@ -120,6 +120,40 @@ class Kanbanize(Session):
         r = self.post('/edit_task/', data=params, format = 'raw')
         return r.content
 
+    def get_board_activities(self, boardid, fromdate, todate, format='dict',
+                             **kwargs):
+        """
+        Retrieves 'boardid' board activities
+
+        extra kwargs common used are 'page', 'resultsperpage',
+                                                  'textformat' [plain, html]
+        (see http://kanbanize.com/ctrl_integration for details)
+
+        :param boardid: Board number to retrieve tasks from
+        :type boardid: int
+        :param fromdate: From Date parameter
+        :type fromdate: str (http://kanbanize.com/ctrl_integration for details)
+        :param todate: To Date parameter
+        :type todate: str (http://kanbanize.com/ctrl_integration for details)
+        :param format: Return format default to 'dict' only tested this!
+        :type format: None, 'dict', 'xml', 'json, 'csv'
+        :rtype: dict or str (for explicit format request)
+
+        """
+        details = {}
+        details['boardid'] = boardid
+        details['fromdate'] = fromdate
+        details['todate'] = todate
+	details.update(kwargs)
+        params = json.dumps(details)
+        logging.debug('get_board_activities:%s' % params)
+        ret = self.post('/get_board_activities/', data=params, format=format)
+        if format == 'dict':
+            return ret.json
+        else:
+            return ret.content
+
+
 if __name__ == "__main__":
     import doctest
     doctest.testmod()
