@@ -34,8 +34,10 @@ Changelog
 
 0.3.0
 -----
+WARNING: this release breaks your import statement, be careful when updating!!!
+
 + added get_board_activities (thank you Marcel Portela)
-* some restructuring (no more from python_kanbanize.wrapper import)
+* some restructuring (no more from python_kanbanize.wrapper import, sorry)
 
 0.2.0
 -----

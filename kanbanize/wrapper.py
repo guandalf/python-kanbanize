@@ -153,7 +153,7 @@ class Kanbanize(Session):
         logging.debug('get_board_activities:%s' % params)
         ret = self.post('/get_board_activities/', data=params, format=format)
         if format == 'dict':
-            return ret.json
+            return ret.json()
         else:
             return ret.content
 
