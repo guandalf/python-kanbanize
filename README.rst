@@ -17,7 +17,7 @@ Usage
 =====
 Getting started::
 
-    from python_kanbanize.wrapper import Kanbanize
+    from kanbanize import Kanbanize
 
     k = Kanbanize(<your api key here>)
     k.get_all_tasks(<boardid>)
@@ -31,6 +31,11 @@ http://kanbanize.com/ctrl_integration
 
 Changelog
 =========
+
+0.3.0
+-----
++ added get_board_activities (thank you Marcel Portela)
+* some restructuring (no more from python_kanbanize.wrapper import)
 
 0.2.0
 -----

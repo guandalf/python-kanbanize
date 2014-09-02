@@ -3,7 +3,7 @@ import json
 import logging
 
 class Kanbanize(Session):
-    """ Specialized version of restkit.Resource to deal with kanbanize.com APIs
+    """ Specialized version of requests.Session to deal with kanbanize.com APIs
 
         :param apikey: Your kanbanize.com API key
         :type apikey: str
@@ -56,13 +56,18 @@ class Kanbanize(Session):
             >>> from python_kanbanize.wrapper import Kanbanize
 
             >>> k = Kanbanize(apikey)
-            >>> k.get_all_tasks(5)
-            [{u'columnname': u'backlog', u'blockedreason': None, u'lanename': u'Default Swimlane', u'subtaskdetails': [], u'subtasks': None, u'title': u'Task title', u'color': u'#F0F0F0', u'tags': u'', u'priority': u'Average', u'assignee': u'None', u'deadline': None, u'taskid': u'38', u'subtaskscomplete': None, u'extlink': u'', u'blocked': None, u'type': u'0', u'leadtime': 1, u'size': u'2'}, {u'columnname': u'Backlog', u'blockedreason': None, u'lanename': u'Default Swimlane', u'subtaskdetails': [], u'subtasks': u'0', u'title': u'Kanbanize test task 01', u'color': u'#99b399', u'tags': None, u'priority': u'Average', u'assignee': u'None', u'deadline': None, u'taskid': u'27', u'subtaskscomplete': u'0', u'extlink': None, u'blocked': u'0', u'type': u'0', u'leadtime': 15, u'size': u'2'}, {u'columnname': u'Backlog', u'blockedreason': None, u'lanename': u'Default Swimlane', u'subtaskdetails': [], u'subtasks': u'0', u'title': u'Kanbanize test task 02', u'color': u'#99b399', u'tags': None, u'priority': u'Average', u'assignee': u'None', u'deadline': None, u'taskid': u'28', u'subtaskscomplete': u'0', u'extlink': None, u'blocked': u'0', u'type': u'0', u'leadtime': 15, u'size': u'2'}]
+            >>> t = k.get_all_tasks(5)
+            >>> len(t)
+            12
+            >>> type(t)
+            <type 'list'>
+            >>> type(t[0])
+            <type 'dict'>
 
         """
         r = self.post('/get_all_tasks/boardid/%s' % boardid, format=format)
         if format == 'dict':
-            return r.json
+            return r.json()
         else:
             return r.content
 
@@ -82,7 +87,7 @@ class Kanbanize(Session):
         """
         r = self.post('/get_task_details/boardid/%s/taskid/%s' % (boardid, taskid), format=format)
         if format == 'dict':
-            return r.json
+            return r.json()
         else:
             return r.content
 
@@ -125,8 +130,7 @@ class Kanbanize(Session):
         """
         Retrieves 'boardid' board activities
 
-        extra kwargs common used are 'page', 'resultsperpage',
-                                                  'textformat' [plain, html]
+        extra kwargs common used are 'page', 'resultsperpage', 'textformat' [plain, html]
         (see http://kanbanize.com/ctrl_integration for details)
 
         :param boardid: Board number to retrieve tasks from
@@ -144,7 +148,7 @@ class Kanbanize(Session):
         details['boardid'] = boardid
         details['fromdate'] = fromdate
         details['todate'] = todate
-	details.update(kwargs)
+        details.update(kwargs)
         params = json.dumps(details)
         logging.debug('get_board_activities:%s' % params)
         ret = self.post('/get_board_activities/', data=params, format=format)

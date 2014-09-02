@@ -8,7 +8,7 @@ os.chdir(wd)
 sys.path.insert(1, wd)
 
 name = 'python-kanbanize'
-pkg = __import__('python_kanbanize')
+pkg = __import__('kanbanize')
 
 author, email = pkg.__author__.rsplit(' ', 1)
 email = email.strip('<>')

@@ -11,9 +11,9 @@ Contents:
 .. toctree::
    :maxdepth: 2
 
-.. automodule:: python_kanbanize
+.. automodule:: kanbanize
 
-.. autoclass:: python_kanbanize.wrapper.Kanbanize
+.. autoclass:: kanbanize.Kanbanize
    :members:
 
 Indices and tables

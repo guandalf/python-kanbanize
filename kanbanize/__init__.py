@@ -1,5 +1,5 @@
 __author__ = 'Stefano Guandalini <guandalf@gmail.com>'
-__version__ = '0.2.1'
+__version__ = '0.3.0'
 __classifiers__ = [
     'Intended Audience :: Developers',
     'Operating System :: OS Independent',
@@ -30,10 +30,12 @@ __doc__ = """
 :abstract: Python interface to kanbanize.com API
 :version: %s
 :author: %s
-:contact: http://stefanoguandalini.it/
-:date: 2012-04-06
+:contact: http://about.me/guandalf
+:date: 2014-0828
 :copyright: %s
 """ % (__version__, __author__, __license__)
 
 import logging
 logging.getLogger(__name__).addHandler(logging.NullHandler())
+
+from .wrapper import *
