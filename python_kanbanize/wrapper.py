@@ -62,7 +62,7 @@ class Kanbanize(Session):
         """
         r = self.post('/get_all_tasks/boardid/%s' % boardid, format=format)
         if format == 'dict':
-            return r.json
+            return r.json()
         else:
             return r.content
 
@@ -82,7 +82,7 @@ class Kanbanize(Session):
         """
         r = self.post('/get_task_details/boardid/%s/taskid/%s' % (boardid, taskid), format=format)
         if format == 'dict':
-            return r.json
+            return r.json()
         else:
             return r.content
 
@@ -144,12 +144,12 @@ class Kanbanize(Session):
         details['boardid'] = boardid
         details['fromdate'] = fromdate
         details['todate'] = todate
-	details.update(kwargs)
+        details.update(kwargs)
         params = json.dumps(details)
         logging.debug('get_board_activities:%s' % params)
         ret = self.post('/get_board_activities/', data=params, format=format)
         if format == 'dict':
-            return ret.json
+            return ret.json()
         else:
             return ret.content
 
