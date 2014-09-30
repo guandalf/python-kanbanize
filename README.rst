@@ -41,3 +41,7 @@ Made create_new_task work passing parameters into POST BODY
 Renamed main module from "kanbanize" to "python-kanbanize"
 
 Added logging messages
+
+0.2.1
+-----
+Added new method to use the get_board_activities api from kambanize
