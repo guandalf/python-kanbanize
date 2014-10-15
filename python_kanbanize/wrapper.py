@@ -153,6 +153,35 @@ class Kanbanize(Session):
         else:
             return ret.content
 
+    def move_task(self, boardid, taskid, format='dict', **kwargs):
+        """
+        Move task on the board
+
+        extra kwargs common used are 'column', 'lane',
+        (see http://kanbanize.com/ctrl_integration for details)
+
+        :param boardid: Board number to retrieve tasks from
+        :type boardid: int
+        :param taskid: TaskID of the task to be moved
+        :type taskid: int
+        :param format: Return format default to 'dict'
+        :type format: None, 'dict', 'xml', 'json, 'csv'
+        :rtype: The status of the operation (1 or error) 
+
+        """
+        import ipdb;ipdb.set_trace()
+        details = {}
+        details['boardid'] = boardid
+        details['taskid'] = taskid
+        details.update(kwargs)
+        params = json.dumps(details)
+        logging.debug('move_task:%s' % params)
+        ret = self.post('/move_task/', data=params, format=format)
+        if format == 'dict':
+            return ret.json()
+        else:
+            return ret.content
+
 
 if __name__ == "__main__":
     import doctest
