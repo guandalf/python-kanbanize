@@ -45,7 +45,3 @@ Added logging messages
 0.2.1
 -----
 Added new method to use the get_board_activities api from kambanize
-
-0.2.2
------
-Added new method to use the move_task api from kambanize
