@@ -169,7 +169,6 @@ class Kanbanize(Session):
         :rtype: The status of the operation (1 or error) 
 
         """
-        import ipdb;ipdb.set_trace()
         details = {}
         details['boardid'] = boardid
         details['taskid'] = taskid
