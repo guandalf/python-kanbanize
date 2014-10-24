@@ -36,6 +36,7 @@ Changelog
 -----
 WARNING: this release breaks your import statement, be careful when updating!!!
 
++ added move_task (by Marcel Portela)
 + added get_board_activities (thank you Marcel Portela)
 * some restructuring (no more from python_kanbanize.wrapper import, sorry)
 
