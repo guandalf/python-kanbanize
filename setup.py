@@ -37,7 +37,7 @@ setup(
     long_description=long_description,
     classifiers=classifiers,
     install_requires = reqs,
-    packages=find_packages(),
+    packages=find_packages(exclude=['credentials.py']),
     license = 'GNU GPL',
     keywords ='kanbanize api wrapper',
     zip_safe=False,

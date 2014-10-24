@@ -53,7 +53,7 @@ class Kanbanize(Session):
 
         Example::
 
-            >>> from python_kanbanize.wrapper import Kanbanize
+            >>> from kanbanize import Kanbanize
 
             >>> k = Kanbanize(apikey)
             >>> t = k.get_all_tasks(5)
