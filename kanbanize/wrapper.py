@@ -13,7 +13,7 @@ class Kanbanize(Session):
 
     """
 
-    def __init__(self, apikey, **kwargs):
+    def __init__(self, subdomain, apikey, **kwargs):
         self.subdomain = subdomain
         self.apikey = apikey
         super(Kanbanize, self).__init__(**kwargs)
