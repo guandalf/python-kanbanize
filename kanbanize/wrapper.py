@@ -5,17 +5,21 @@ import logging
 class Kanbanize(Session):
     """ Specialized version of requests.Session to deal with kanbanize.com APIs
 
+        :param subdomain: Your sudomain - https://<subdomain>.kanbanize.com 
+        :type subdomain: str
+
         :param apikey: Your kanbanize.com API key
         :type apikey: str
 
     """
 
     def __init__(self, apikey, **kwargs):
+        self.subdomain = subdomain
         self.apikey = apikey
         super(Kanbanize, self).__init__(**kwargs)
 
     def request(self, method, url=None, data=None, headers=None, **kwargs):
-        URI = 'http://kanbanize.com/index.php/api/kanbanize'
+        URI = 'http://' + self.subdomain + '.kanbanize.com/index.php/api/kanbanize'
         url = '%s%s' % (URI, url)
         headers = { 'apikey': self.apikey, 'content-type': 'application/json' }
         format =  kwargs['format']
@@ -184,6 +188,51 @@ class Kanbanize(Session):
             return ret.json()
         else:
             return ret.content
+
+
+    def archive_task(self, cardid, format='dict', **kwargs):
+        """
+        Move a card to archive
+        :param cardid: CardID of the card to be moved
+        :type cardid: int
+        :param format: Return format default to 'dict'
+        :type format: None, 'dict', 'xml', 'json, 'csv'
+        :rtype: The status of the operation (1 or error) 
+
+        """
+        details = {}
+        details['cardid'] = cardid
+        params = json.dumps(details)
+        logging.debug('archive_task:%s' % params)
+        ret = self.post('/archive_task/', data=params, format=format)
+        if format == 'dict':
+            return ret.json()
+        else:
+            return ret.content
+
+    def get_attachment(self, taskid, uniqueName, format='raw'):
+        """
+        Get attachment from a task
+        :param taskid: TaskID of the task
+        :type taskid: int
+	:param uniqueName: uniqueName of the attachment
+	:this parameter can be extracted with method get_task_details
+	:type uniqueName: string
+        :param format: Return format default to 'raw'
+        :rtype: Content of the attachment 
+
+        """
+        details = {}
+        details['taskid'] = taskid
+        details['uniquename'] = uniqueName
+        params = json.dumps(details)
+        logging.debug('get_attachment:%s' % params)
+        ret = self.post('/get_attachment/', data=params, format=format)
+        if format == 'dict':
+            return ret.json()
+        else:
+            return ret.content
+
 
 
 if __name__ == "__main__":
