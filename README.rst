@@ -17,9 +17,9 @@ Usage
 =====
 Getting started::
 
-    from kanbanize import Kanbanize
+    from python_kanbanize import Kanbanize
 
-    k = Kanbanize(<your api key here>)
+    k = Kanbanize(<your subdomain here>, <your api key here>)
     k.get_all_tasks(<boardid>)
 
 Note
@@ -27,7 +27,7 @@ Note
 
 The wrapper will reproduce all the methods available at:
 
-http://kanbanize.com/ctrl_integration
+https://kanbanize.com/api/
 
 Changelog
 =========
