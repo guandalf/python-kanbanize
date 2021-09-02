@@ -19,7 +19,7 @@ class Kanbanize(Session):
         super(Kanbanize, self).__init__(**kwargs)
 
     def request(self, method, url=None, data=None, headers=None, **kwargs):
-        URI = 'http://' + self.subdomain + '.kanbanize.com/index.php/api/kanbanize'
+        URI = 'https://' + self.subdomain + '.kanbanize.com/index.php/api/kanbanize'
         url = '%s%s' % (URI, url)
         headers = { 'apikey': self.apikey, 'content-type': 'application/json' }
         format =  kwargs['format']
